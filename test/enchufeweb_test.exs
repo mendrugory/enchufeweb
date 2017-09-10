@@ -1,6 +1,5 @@
 defmodule EnchufewebTest do
   use ExUnit.Case
-  doctest Enchufeweb
 
   test "send/receive message" do
     Process.register(self(), :test1)
