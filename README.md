@@ -1,16 +1,16 @@
-# Websockex
+# Enchufeweb
 
-[![hex.pm](https://img.shields.io/hexpm/v/websockex.svg?style=flat-square)](https://hex.pm/packages/websockex) [![hexdocs.pm](https://img.shields.io/badge/docs-latest-green.svg?style=flat-square)](https://hexdocs.pm/websockex/) [![Build Status](https://travis-ci.org/mendrugory/websockex.svg?branch=master)](https://travis-ci.org/mendrugory/websockex)
+[![hex.pm](https://img.shields.io/hexpm/v/enchufeweb.svg?style=flat-square)](https://hex.pm/packages/enchufeweb) [![hexdocs.pm](https://img.shields.io/badge/docs-latest-green.svg?style=flat-square)](https://hexdocs.pm/enchufeweb/) [![Build Status](https://travis-ci.org/mendrugory/enchufeweb.svg?branch=master)](https://travis-ci.org/mendrugory/enchufeweb)
 
 
-  Websockex is a websocket client library written in Elixir and based on 
+  Enchufeweb is a websocket client library written in Elixir and based on 
   the Erlang library [websocket_client](https://hex.pm/packages/websocket_client).
 
   ## Installation
-  Add `websockex` to your list of dependencies in `mix.exs`:
+  Add `enchufeweb` to your list of dependencies in `mix.exs`:
   ```elixir
   def deps do
-    [{:websockex, "~> 0.1.0"}]
+    [{:enchufeweb, "~> 0.1.0"}]
   end
   ```
   ## How to use it
@@ -18,7 +18,7 @@
   * Definition of the Websocket Client
   ```elixir
     defmodule Client do
-      use Websockex
+      use Enchufeweb
       def handle_message(data, state) do 
         IO.inspect data
         {:ok, state}
@@ -47,7 +47,7 @@
   * Client which will send a message just after the connection
   ```elixir
     defmodule Client2 do
-      use Websockex
+      use Enchufeweb
       def handle_message(data, state) do 
         IO.inspect data
         {:ok, state}
