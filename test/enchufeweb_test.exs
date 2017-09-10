@@ -155,12 +155,15 @@ defmodule EnchufewebTest do
         {:ok, state}
       end
       def handle_connection(_, state) do
-        {:reply, Poison.encode!(%{"data_type" => "greeting", "data" => "hola"}), state}
+        {:ok, init_message} = Keyword.fetch(state, :init_message)
+        {:reply, Poison.encode!(init_message), state}
       end
       def handle_disconnection(_, state), do: {:close, "end", state}
     end
 
-    {:ok, _client} = Client6.start_link([url: "ws://localhost:8888/websocket", ws_opts: %{conn_mode: :once}])
+    {:ok, _client} = Client6.start_link([url: "ws://localhost:8888/websocket",
+                                        init_message: %{"data_type" => "greeting", "data" => "hola"},
+                                         ws_opts: %{conn_mode: :once}])
     Process.sleep 100
     
     receive do

@@ -15,7 +15,7 @@
   ```
   ## How to use it
 
-  * Definition of the Websocket Client
+  * Implementation of the Websocket Client
   ```elixir
     defmodule Client do
       use Enchufeweb
@@ -46,15 +46,13 @@
 
   * Client which will send a message just after the connection
   ```elixir
-    defmodule Client2 do
+    defmodule Client do
       use Enchufeweb
       def handle_message(data, state) do 
         IO.inspect data
         {:ok, state}
       end
-      def handle_connection(_, state) do
-        {:reply, "Initial message",state}
-      end
+      def handle_connection(_, state), do: {:reply, "Initial message", state}
       def handle_disconnection(_, state), do: {:close, "end", state}
     end
   ```

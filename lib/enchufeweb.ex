@@ -12,7 +12,7 @@ defmodule Enchufeweb do
   ```
   ## How to use it
 
-  * Definition of the Websocket Client
+  * Implementation of the Websocket Client
   ```elixir
     defmodule Client do
       use Enchufeweb
@@ -33,27 +33,23 @@ defmodule Enchufeweb do
 
   * Send a `ping`
   ```bash
-  iex> {:ok, client} = Client.start_link([url: "ws://localhost:8888/websocket", ws_opts: %{conn_mode: :once}]) 
   iex> Client.ws_send(client, :ping)
   ```
 
   * Close the connection
   ```bash
-  iex> {:ok, client} = Client.start_link([url: "ws://localhost:8888/websocket", ws_opts: %{conn_mode: :once}]) 
   iex> Client.ws_send(client, :close)
   ```
 
   * Client which will send a message just after the connection
   ```elixir
-    defmodule Client2 do
+    defmodule Client do
       use Enchufeweb
       def handle_message(data, state) do 
         IO.inspect data
         {:ok, state}
       end
-      def handle_connection(_, state) do
-        {:reply, "Initial message",state}
-      end
+      def handle_connection(_, state), do: {:reply, "Initial message", state}
       def handle_disconnection(_, state), do: {:close, "end", state}
     end
   ```
@@ -128,8 +124,9 @@ defmodule Enchufeweb do
 
       @msg_after_conn_time    10
 
-      def start_link([url: url, ws_opts: ws_opts]) do 
-        :websocket_client.start_link(url, __MODULE__, ws_opts)
+      def start_link(args) do
+        {:ok, url} = Keyword.fetch(args, :url)
+        :websocket_client.start_link(url, __MODULE__, args)
       end
 
       def ws_send(ws, message) do 
@@ -137,11 +134,15 @@ defmodule Enchufeweb do
         :websocket_client.cast(ws, frame)
       end
 
-      def init(%{conn_mode: conn_mode}) do
+      def init(args) do
+        conn_mode = 
+          with {:ok, ws_opts} <- Keyword.fetch(args, :ws_opts),
+               {:ok, conn_mode} <- Map.fetch(ws_opts, :conn_mode),
+          do: conn_mode
         mode = if conn_mode == :disconnected, do: :ok, else: conn_mode
         :crypto.start()
         :ssl.start()
-        {mode, []}
+        {mode, args}
       end
 
       def onconnect(msg, state) do
