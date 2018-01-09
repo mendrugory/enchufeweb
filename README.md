@@ -10,7 +10,7 @@
   Add `enchufeweb` to your list of dependencies in `mix.exs`:
   ```elixir
   def deps do
-    [{:enchufeweb, "~> 0.1.0"}]
+    [{:enchufeweb, "~> 0.2.1"}]
   end
   ```
   ## How to use it

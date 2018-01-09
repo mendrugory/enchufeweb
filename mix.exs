@@ -1,7 +1,7 @@
 defmodule Enchufeweb.Mixfile do
   use Mix.Project
 
-  @version "0.1.0"
+  @version "0.2.1"
   
   def project do
     [
@@ -29,11 +29,11 @@ defmodule Enchufeweb.Mixfile do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:websocket_client, "~> 1.3"},
+      {:websocket_client, "1.3.0"},
       {:earmark, ">= 0.0.0", only: :dev},
       {:ex_doc, ">= 0.0.0", only: :dev},
       {:poison, ">= 0.0.0", only: :test}, # it should only be for test
-      {:cowboy, github: "ninenines/cowboy", tag: "2.0.0-pre.3", only: :test} # it should only be for test
+      {:cowboy, github: "ninenines/cowboy", tag: "2.0.0-pre.3", only: :test} # only for testing
     ]
   end
 

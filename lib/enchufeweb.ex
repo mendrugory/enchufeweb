@@ -7,7 +7,7 @@ defmodule Enchufeweb do
   Add `enchufeweb` to your list of dependencies in `mix.exs`:
   ```elixir
   def deps do
-    [{:enchufeweb, "~> 0.1.0"}]
+    [{:enchufeweb, "~> 0.2.1"}]
   end
   ```
   ## How to use it
@@ -27,7 +27,7 @@ defmodule Enchufeweb do
 
   * Connect the client and send a message
   ```bash
-  iex> {:ok, client} = Client.start_link([url: "ws://localhost:8888/websocket", ws_opts: %{conn_mode: :once}]) 
+  iex> {:ok, client} = Client.start_link([url: "ws://localhost:8888/websocket", ws_opts: %{conn_mode: :once}, extra_headers: ["User-Agent" => "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0"]]) 
   iex> Client.ws_send(client, "Hola")
   ```
 
@@ -126,7 +126,7 @@ defmodule Enchufeweb do
 
       def start_link(args) do
         {:ok, url} = Keyword.fetch(args, :url)
-        :websocket_client.start_link(url, __MODULE__, args)
+        :websocket_client.start_link(url, __MODULE__, args, args)
       end
 
       def ws_send(ws, message) do 
