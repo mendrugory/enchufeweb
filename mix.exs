@@ -7,15 +7,19 @@ defmodule Enchufeweb.Mixfile do
     [
       app: :enchufeweb,
       version: @version,
-      elixir: "~> 1.5",
+      elixir: "~> 1.6",
       start_permanent: Mix.env == :prod,
       deps: deps(),
       package: package(),
       description: "Websocket Library written in Elixir",
       build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
-      docs: [main: "Enchufeweb", source_ref: "v#{@version}",
-      source_url: "https://github.com/mendrugory/enchufeweb"]
+      docs: [
+        main: "readme", 
+        extras: ["README.md"],
+        source_ref: "v#{@version}",
+        source_url: "https://github.com/mendrugory/enchufeweb"
+      ]
     ]
   end
 
